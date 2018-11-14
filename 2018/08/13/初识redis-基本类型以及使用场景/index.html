@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+  <title>初识redis-基本类型以及使用场景 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+    <meta name="keywords" content="huxiaojia Blog">
+  
+  <meta name="description" content="通用命令 通用命令 keys:计算key的数量 keys: *遍历所有key，时间复杂度O(n) keys[psttern]: 条件查询key ,时间复杂度O(1)   dbsize: 计算数据库大小,时间复杂度O(1) exists key: 判断key是否存在，存在返回1，否则0,时间复杂度O(1) del key[key…]: 删除数据,时间复杂度O(1) expire key second">
+<meta name="keywords" content="redis">
+<meta property="og:type" content="article">
+<meta property="og:title" content="初识redis-基本类型以及使用场景">
+<meta property="og:url" content="http://yoursite.com/2018/08/13/初识redis-基本类型以及使用场景/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="通用命令 通用命令 keys:计算key的数量 keys: *遍历所有key，时间复杂度O(n) keys[psttern]: 条件查询key ,时间复杂度O(1)   dbsize: 计算数据库大小,时间复杂度O(1) exists key: 判断key是否存在，存在返回1，否则0,时间复杂度O(1) del key[key…]: 删除数据,时间复杂度O(1) expire key second">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-11-13T13:00:26.366Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="初识redis-基本类型以及使用场景">
+<meta name="twitter:description" content="通用命令 通用命令 keys:计算key的数量 keys: *遍历所有key，时间复杂度O(n) keys[psttern]: 条件查询key ,时间复杂度O(1)   dbsize: 计算数据库大小,时间复杂度O(1) exists key: 判断key是否存在，存在返回1，否则0,时间复杂度O(1) del key[key…]: 删除数据,时间复杂度O(1) expire key second">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
+  <script src="/js/pace.min.js"></script>
+  
+
+  
+  
+
+</head>
+</html>
+<body>
+  <div id="container">
+      <header id="header">
+    <div id="banner"></div>
+    <div id="header-outer">
+        <div id="header-menu" class="header-menu-pos animated">
+            <div class="header-menu-container">
+                <a href="/" class="left">
+                    <span class="site-title">huxiaojia&#39;s Blog</span>
+                </a>
+                <nav id="header-menu-nav" class="right">
+                    
+                    <a href="/">
+                        <i class="fa fa-home"></i>
+                        <span>Home</span>
+                    </a>
+                    
+                    <a href="/archives">
+                        <i class="fa fa-archive"></i>
+                        <span>Archives</span>
+                    </a>
+                    
+                    <a href="/about">
+                        <i class="fa fa-user"></i>
+                        <span>About</span>
+                    </a>
+                    
+                </nav>
+                <a class="mobile-header-menu-button">
+                    <i class="fa fa-bars"></i>
+                </a>
+            </div>
+        </div>
+        <div id="header-row">
+            <div id="logo">
+                <a href="/">
+                    <img src="/images/logo.jpg" width="60px" height="60px" alt="logo">
+                </a>
+            </div>
+            <div class="header-info">
+                <div id="header-title">
+                    
+                    <h2>
+                        huxiaojia&#39;s Blog
+                    </h2>
+                    
+                </div>
+                <div id="header-description">
+                    
+                    <h3>
+                        烟花一点上晴空 白云一浮荡烟火
+                    </h3>
+                    
+                </div>
+            </div>
+            <nav class="header-nav">
+                <div class="social">
+                    
+                        <a title="huxiaojia" target="_blank" href="//minhow.com">
+                            <i class="fa fa-home fa-2x"></i></a>
+                    
+                        <a title="Github" target="_blank" href="//github.com/OctoberCity">
+                            <i class="fa fa-github fa-2x"></i></a>
+                    
+                </div>
+            </nav>
+        </div>
+    </div>
+</header>
+      <div class="outer">
+        <section id="main" class="body-wrap"><article id="post-初识redis-基本类型以及使用场景" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="post-title" itemprop="name">
+      初识redis-基本类型以及使用场景
+    </h1>
+    <div class="post-title-bar">
+      <ul>
+          
+        <li>
+          <i class="fa fa-calendar"></i>  2018-08-13
+        </li>
+        <li>
+          <i class="fa fa-eye"></i>
+          <span id="busuanzi_value_page_pv"></span>
+        </li>
+      </ul>
+    </div>
+  
+
+          
+      </header>
+    
+    <div class="article-entry post-content" itemprop="articleBody">
+      
+            
+            <h4 id="通用命令"><a href="#通用命令" class="headerlink" title="通用命令"></a>通用命令</h4><ul>
+<li>通用命令<ul>
+<li>keys:计算key的数量<ul>
+<li>keys: *遍历所有key，时间复杂度O(n)</li>
+<li>keys[psttern]: 条件查询key ,时间复杂度O(1)</li>
+</ul>
+</li>
+<li>dbsize: 计算数据库大小,时间复杂度O(1)</li>
+<li>exists key: 判断key是否存在，存在返回1，否则0,时间复杂度O(1)</li>
+<li>del key[key…]: 删除数据,时间复杂度O(1)</li>
+<li>expire key seconds:  给key设置过期时间,时间复杂度O(1)</li>
+<li>ttl key :查看某key剩余的过期时间，如果key存在且没有过期时间返回-1，如果没有过期时间返回-2,时间复杂度O(1)</li>
+<li>persist key :去除某个key的过期时间,时间复杂度O(1)</li>
+<li>type key:计算其类型,时间复杂度O(1)</li>
+</ul>
+</li>
+<li>单线程架构<br>  一时间只能只运行一条命令，拒绝长命令类似keys,运行快主要是用了内存。</li>
+<li>数据结构和内部编码<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">graph TD</span><br><span class="line">    A[Chrisymas] --&gt;B(string)</span><br><span class="line">    A--&gt;C(hash)</span><br><span class="line">    A--&gt;D(list)</span><br><span class="line">    A--&gt;E(set)</span><br><span class="line">    A--&gt;F(zset)</span><br><span class="line">    B--&gt;raw</span><br><span class="line">    B--&gt;int</span><br><span class="line">    B--&gt;embstr</span><br><span class="line">    C--&gt;dd</span><br><span class="line">    C--&gt;dd</span><br><span class="line">    C--&gt;dd</span><br><span class="line">    D--&gt;dd</span><br><span class="line">    D--&gt;dd</span><br><span class="line">    D--&gt;dd</span><br><span class="line">    E--&gt;dd</span><br><span class="line">    E--&gt;dd</span><br><span class="line">    E--&gt;dd</span><br><span class="line">    F--&gt;dd</span><br><span class="line">    F--&gt;dd</span><br><span class="line">    F--&gt;dd</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="列表类型"><a href="#列表类型" class="headerlink" title="列表类型"></a>列表类型</h4><h4 id="字符串类型"><a href="#字符串类型" class="headerlink" title="字符串类型"></a>字符串类型</h4><ul>
+<li><p>结构和命令</p>
+<p>  字符串最高限制512MB,缓存，计数器，分布式锁</p>
+<ul>
+<li>get key </li>
+<li>set key value</li>
+<li>del key</li>
+<li>incr key 自增</li>
+<li>decr key 自减</li>
+<li>incrby key num 自增num</li>
+<li>decrby key num 自减num</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><p>差缺补漏</p>
+<ul>
+<li>set setnx //不存在才执行</li>
+<li>set setnx //存在才执行</li>
+<li>mget key1 key2… 批量获取</li>
+<li>mset key1 value1 key2 value2…批量设置</li>
+<li>getset key newvalue 设置新值返回旧值</li>
+<li>append key value 追加</li>
+<li>strlen key 长度</li>
+<li>incrbyfload 增加浮点长度</li>
+<li>getrange    根据下标获取内容</li>
+</ul>
+</li>
+<li><p>使用实例</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">//网站访问量技术，且是顺序执行</span><br><span class="line"> incr userID:pageview</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<pre><code><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">//缓存视频的基本信息</span><br><span class="line"> function getInfoByidFromRedis(id)&#123;</span><br><span class="line">     var rediskey = redisPrefix +id;</span><br><span class="line">     var videoInfo =redis.get(rediskey);</span><br><span class="line">     if(videoInfo == null)&#123;</span><br><span class="line">         videoInfo=mysql.get(id) ;</span><br><span class="line">         if(videoInfo)&#123;</span><br><span class="line">             redis.set(rediskey,serialize());</span><br><span class="line">         &#125;</span><br><span class="line">     &#125;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+</code></pre>  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">//分布式id生成器</span><br><span class="line">多个service需要id 用incr</span><br></pre></td></tr></table></figure>
+<h4 id="集合类型"><a href="#集合类型" class="headerlink" title="集合类型"></a>集合类型</h4><ul>
+<li>特点<ul>
+<li>无序，无重复，集合间操作</li>
+</ul>
+</li>
+<li>集合内API<ul>
+<li>sadd key element 添加 </li>
+<li>srem key element 删除</li>
+<li>scard key  计算集合元素数量</li>
+<li>sismember  判断是不是该集合的元素</li>
+<li>srandmember 随机选择一个元素</li>
+<li>smembers   查询所有的元素</li>
+<li>spop     随机弹出一个</li>
+</ul>
+</li>
+<li><p>集合间API</p>
+<ul>
+<li>sdiff 差集</li>
+<li>sinter 交集</li>
+<li>sunion 并集</li>
+</ul>
+</li>
+</ul>
+<h4 id="哈希类型"><a href="#哈希类型" class="headerlink" title="哈希类型"></a>哈希类型</h4><ul>
+<li>哈希键值结构</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>key</th>
+<th>fileds</th>
+<th>value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>user:1:info</td>
+<td>name</td>
+<td>hjw</td>
+</tr>
+<tr>
+<td>user:1:info</td>
+<td>age</td>
+<td>23</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><p>哈希命令</p>
+<ul>
+<li>hset key field value //设置一个hashset 的一个field的值</li>
+<li>hget key field  得到一个hashset 的一个field的值</li>
+<li>hdel key field 删除一个hashset 的一个field的值</li>
+<li>hgetall key 获得该key的所有field的值</li>
+<li>hexists key field 判断field是否存在</li>
+<li>hlen  返回属性</li>
+<li>hmget key  field1 value1 field2  value2  </li>
+<li>hmset key  field1 field2</li>
+<li>hgetall key 获得所有的filed和value,注意单线程,如果filed非常多,会消耗性能</li>
+<li>hvals  key 获得所有的value</li>
+<li>hkeys key 获得所有fileds的名字</li>
+</ul>
+</li>
+<li><p>使用场景</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">//页面访问数量</span><br><span class="line">hincrby user:1:info</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>string 和hash的存储对象对比</p>
+<ol>
+<li>key value(整个对象.toString())</li>
+<li>key(fileds) value //比如user-name:”名字” user-age:”22” </li>
+<li>key  value //value是一个对象,且不是string<blockquote>
+<p>三种方案对比<br>命令 | 优点|缺点<br>—|—|—<br>string v1| 编程简单，可能节约内存|序列化开销，修改属性需要操作整个数据<br>string v2 | 直观，可以部分修改|内存占用较大，key较为分散<br>hash  | 直观，节省空间，可以部分更新|编程稍微复杂，ttl不好控制</p>
+</blockquote>
+</li>
+</ol>
+</li>
+</ul>
+<h4 id="列表-有序，可以重复-左右弹出"><a href="#列表-有序，可以重复-左右弹出" class="headerlink" title="列表(有序，可以重复,左右弹出)"></a>列表(有序，可以重复,左右弹出)</h4><ul>
+<li><p>命令</p>
+<ul>
+<li>rpush/lpush(右边插入/左边插入) key1 value1 ,key2 value2….</li>
+<li>rpop/lpop(右边弹出/左边弹出) key1 value1 ,key2 value2….</li>
+<li>linsert key before|after value newValue 在value 左/右边插入newvalue</li>
+<li>lrem key count value  删除左边|count|个value(count&gt;0),删除右边|count|个value(count&lt;0)</li>
+<li>ltrim key start end 删除下标start-end的之外的值</li>
+<li>lrange key start end 搜索下标start-end</li>
+<li>lindex key index 按照下标来取值</li>
+<li>len获取list长度</li>
+</ul>
+</li>
+<li><p>使用场景</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">//微博的时间轴</span><br><span class="line"> 用户新增数据，lpush</span><br><span class="line"> 使用lrange key start end</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>查漏补缺</p>
+<ul>
+<li>blpop brpop key timeout 阻塞弹出，消息队列</li>
+</ul>
+</li>
+<li><p>tips<br>1 lpush +lpop= stack 栈  左近左出（先进后出）<br>2 lpush +rpop= queue 队列  左近右出 (先进先出)<br>3 lpush + ltrim = capped Collection<br>4 lpush + brpop =Message queue 消息队列</p>
+</li>
+</ul>
+<h4 id="有序集合"><a href="#有序集合" class="headerlink" title="有序集合"></a>有序集合</h4><ul>
+<li><p>特点</p>
+<ul>
+<li>有序，无重复，组成是（element + score）</li>
+</ul>
+</li>
+<li><p>命令</p>
+<ul>
+<li>zadd key score1 element1 score2 element2 新增</li>
+<li>zrem key score1 element1 score2 element2 删除</li>
+<li>zscore key element 获得元素的score</li>
+<li>zincrby key num element 给element的score增加num</li>
+<li>zcard 返回元素的个数</li>
+<li>zrank key element 获取element排名</li>
+</ul>
+</li>
+<li><p>应用场景</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">排行榜</span><br><span class="line">使用排序的特点，比如学生排行，用成绩做score,做排序的方式</span><br></pre></td></tr></table></figure></li>
+</ul>
+
+            <div class="post-copyright">
+    <div class="content">
+        <p>最后更新： 2018年11月13日 21:00</p>
+        <p>原始链接： <a class="post-url" href="/2018/08/13/初识redis-基本类型以及使用场景/" title="初识redis-基本类型以及使用场景">http://yoursite.com/2018/08/13/初识redis-基本类型以及使用场景/</a></p>
+        <footer>
+            <a href="http://yoursite.com">
+                <img src="/images/logo.jpg" alt="John Doe">
+                John Doe
+            </a>
+        </footer>
+    </div>
+</div>
+
+      
+        
+            
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;">赏</a>
+</div>
+
+<div id="reward" class="post-modal reward-lay">
+    <a class="close" href="javascript:;" id="reward-close">×</a>
+    <span class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        请我吃糖~
+        <i class="icon icon-quote-right"></i>
+    </span>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/images/wechat_code.jpg" alt="打赏二维码">
+        </div>
+        <div class="reward-select">
+            
+            <label class="reward-select-item checked" data-id="wechat" data-wechat="/images/wechat_code.jpg">
+                <img class="reward-select-item-wechat" src="/images/wechat.png" alt="微信">
+            </label>
+            
+            
+            <label class="reward-select-item" data-id="alipay" data-alipay="/images/alipay_code.jpg">
+                <img class="reward-select-item-alipay" src="/images/alipay.png" alt="支付宝">
+            </label>
+            
+        </div>
+    </div>
+</div>
+
+
+        
+    </div>
+    <footer class="article-footer">
+        
+        
+<div class="post-share">
+    <a href="javascript:;" id="share-sub" class="post-share-fab">
+        <i class="fa fa-share-alt"></i>
+    </a>
+    <div class="post-share-list" id="share-list">
+        <ul class="share-icons">
+          <li>
+            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://yoursite.com/2018/08/13/初识redis-基本类型以及使用场景/&title=《初识redis-基本类型以及使用场景》 — Hexo&pic=http://yoursite.comimages/logo.jpg" data-title="微博">
+              <i class="fa fa-weibo"></i>
+            </a>
+          </li>
+          <li>
+            <a class="weixin share-sns" id="wxFab" href="javascript:;" data-title="微信">
+              <i class="fa fa-weixin"></i>
+            </a>
+          </li>
+          <li>
+            <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://yoursite.com/2018/08/13/初识redis-基本类型以及使用场景/&title=《初识redis-基本类型以及使用场景》 — Hexo&source=" data-title="QQ">
+              <i class="fa fa-qq"></i>
+            </a>
+          </li>
+          <li>
+            <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2018/08/13/初识redis-基本类型以及使用场景/" data-title="Facebook">
+              <i class="fa fa-facebook"></i>
+            </a>
+          </li>
+          <li>
+            <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《初识redis-基本类型以及使用场景》 — Hexo&url=http://yoursite.com/2018/08/13/初识redis-基本类型以及使用场景/&via=http://yoursite.com" data-title="Twitter">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+          <li>
+            <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://yoursite.com/2018/08/13/初识redis-基本类型以及使用场景/" data-title="Google+">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        </ul>
+     </div>
+</div>
+<div class="post-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;" id="wxShare-close">×</a>
+    <p>扫一扫，分享到微信</p>
+    <img src="//api.qrserver.com/v1/create-qr-code/?data=http://yoursite.com/2018/08/13/初识redis-基本类型以及使用场景/" alt="微信分享二维码">
+</div>
+
+<div class="mask"></div>
+
+        
+        <ul class="article-footer-menu">
+            
+            
+  <li class="article-footer-tags">
+    <i class="fa fa-tags"></i>
+      
+    <a href="/tags/redis/" class="color1">redis</a>
+      
+  </li>
+
+        </ul>
+        
+    </footer>
+  </div>
+</article>
+
+
+    <aside class="post-toc-pos post-toc-top" id="post-toc">
+        <nav class="post-toc-wrap">
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#通用命令"><span class="post-toc-text">通用命令</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#列表类型"><span class="post-toc-text">列表类型</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#字符串类型"><span class="post-toc-text">字符串类型</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#集合类型"><span class="post-toc-text">集合类型</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#哈希类型"><span class="post-toc-text">哈希类型</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#列表-有序，可以重复-左右弹出"><span class="post-toc-text">列表(有序，可以重复,左右弹出)</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#有序集合"><span class="post-toc-text">有序集合</span></a></li></ol>
+        </nav>
+    </aside>
+    
+
+<nav id="article-nav">
+  
+    <a href="/2018/08/13/初识redis-redis的其他功能/" id="article-nav-newer" class="article-nav-link-wrap">
+
+      <span class="article-nav-title">
+        <i class="fa fa-hand-o-left" aria-hidden="true"></i>
+        
+          初识redis-redis的其他功能
+        
+      </span>
+    </a>
+  
+  
+    <a href="/2018/08/13/初识redis/" id="article-nav-older" class="article-nav-link-wrap">
+      <span class="article-nav-title">初识redis</span>
+      <i class="fa fa-hand-o-right" aria-hidden="true"></i>
+    </a>
+  
+</nav>
+
+
+
+    
+</section>
+        
+      </div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+<p>
+    <span id="busuanzi_container_site_uv" style="display:none">
+        总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style="display:none">
+        总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+      <p>
+        Powered by  <a href="http://hexo.io/" target="_blank">Hexo</a>
+        Theme <a href="//github.com/wongminho/hexo-theme-miho" target="_blank">MiHo</a>
+      &copy; 2018 John Doe<br>
+      </p>
+    </div>
+  </div>
+</footer>
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<script>
+  var mihoConfig = {
+      root: "http://yoursite.com",
+      animate: true,
+      isHome: false,
+      share: true,
+      reward: 1
+  }
+</script>
+<div class="sidebar">
+    <div id="sidebar-search" title="Search">
+        <i class="fa fa-search"></i>
+    </div>
+    <div id="sidebar-category" title="Categories">
+        <i class="fa fa-book"></i>
+    </div>
+    <div id="sidebar-tag" title="Tags">
+        <i class="fa fa-tags"></i>
+    </div>
+    <div id="sidebar-top">
+        <span class="sidebar-top-icon"><i class="fa fa-angle-up"></i></span>
+    </div>
+</div>
+<div class="sidebar-menu-box" id="sidebar-menu-box">
+    <div class="sidebar-menu-box-container">
+        <div id="sidebar-menu-box-categories">
+            
+        </div>
+        <div id="sidebar-menu-box-tags">
+            <a href="/tags/linux/" style="font-size: 15px;">linux</a> <a href="/tags/redis/" style="font-size: 20px;">redis</a> <a href="/tags/博客/" style="font-size: 10px;">博客</a>
+        </div>
+    </div>
+    <a href="javascript:;" class="sidebar-menu-box-close">&times;</a>
+</div>
+<div class="mobile-header-menu-nav" id="mobile-header-menu-nav">
+    <div class="mobile-header-menu-container">
+        <span class="title">Menus</span>
+        <ul class="mobile-header-menu-navbar">
+            
+            <li>
+                <a href="/">
+                    <i class="fa fa-home"></i><span>Home</span>
+                </a>
+            </li>
+            
+            <li>
+                <a href="/archives">
+                    <i class="fa fa-archive"></i><span>Archives</span>
+                </a>
+            </li>
+            
+            <li>
+                <a href="/about">
+                    <i class="fa fa-user"></i><span>About</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    <div class="mobile-header-tag-container">
+        <span class="title">Tags</span>
+        <div id="mobile-header-container-tags">
+            <a href="/tags/linux/" style="font-size: 15px;">linux</a> <a href="/tags/redis/" style="font-size: 20px;">redis</a> <a href="/tags/博客/" style="font-size: 10px;">博客</a>
+        </div>
+    </div>
+</div>
+<div class="search-wrap">
+    <span class="search-close">&times;</span>
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+            <i class="icon icon-lg icon-chevron-left"></i>
+        </a>
+        <input class="search-field" placeholder="Search..." id="keywords">
+        <a id="search-submit" href="javascript:;">
+            <i class="fa fa-search"></i>
+        </a>
+    <div class="search-container" id="search-container">
+        <ul class="search-result" id="search-result">
+        </ul>
+    </div>
+</div>
+
+<div id="search-tpl">
+    <li class="search-result-item">
+        <a href="{url}" class="search-item-li">
+            <span class="search-item-li-title" title="{title}">{title}</span>
+        </a>
+    </li>
+</div>
+<script src="/js/search.js"></script>
+<script src="/js/main.js"></script>
+
+
+  <script src="//cdn.bootcss.com/particles.js/2.0.0/particles.min.js"></script>
+  <div id="particles"></div>
+  <script src="/js/particles.js"></script>
+
+
+
+
+
+
+
+  <link rel="stylesheet" href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css">
+  <script src="//cdn.bootcss.com/scrollReveal.js/3.0.5/scrollreveal.js"></script>
+  <script src="/js/animate.js"></script>
+
+
+  <script src="/js/pop-img.js"></script>
+  <script>
+     $(".article-entry p img").popImg();
+  </script>
+
+  </div>
+</body>
+</html>

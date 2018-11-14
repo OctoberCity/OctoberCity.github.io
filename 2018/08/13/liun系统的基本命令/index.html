@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+  <title>liun系统的基本命令 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+    <meta name="keywords" content="huxiaojia Blog">
+  
+  <meta name="description" content="软件操作命令 软件包管理 yum   安装软件 yum install ***   卸载软件 yum remove ***   搜索软件 yum search ***   清理缓存 yum clean packages   列出已经安装的软件 yum list   软件包信息 yum info ***    服务器硬件资源和磁盘操作命令 内存  free-m   硬盘   df-h   负载(cp">
+<meta name="keywords" content="linux">
+<meta property="og:type" content="article">
+<meta property="og:title" content="liun系统的基本命令">
+<meta property="og:url" content="http://yoursite.com/2018/08/13/liun系统的基本命令/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="软件操作命令 软件包管理 yum   安装软件 yum install ***   卸载软件 yum remove ***   搜索软件 yum search ***   清理缓存 yum clean packages   列出已经安装的软件 yum list   软件包信息 yum info ***    服务器硬件资源和磁盘操作命令 内存  free-m   硬盘   df-h   负载(cp">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="https://note.youdao.com/yws/public/resource/2366cfb1a6a91c297a4562260c257a23/xmlnote/192C6CA50D1C48AE8E4A75D0ED495B40/5935">
+<meta property="og:updated_time" content="2018-11-14T02:40:23.689Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="liun系统的基本命令">
+<meta name="twitter:description" content="软件操作命令 软件包管理 yum   安装软件 yum install ***   卸载软件 yum remove ***   搜索软件 yum search ***   清理缓存 yum clean packages   列出已经安装的软件 yum list   软件包信息 yum info ***    服务器硬件资源和磁盘操作命令 内存  free-m   硬盘   df-h   负载(cp">
+<meta name="twitter:image" content="https://note.youdao.com/yws/public/resource/2366cfb1a6a91c297a4562260c257a23/xmlnote/192C6CA50D1C48AE8E4A75D0ED495B40/5935">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
+  <script src="/js/pace.min.js"></script>
+  
+
+  
+  
+
+</head>
+</html>
+<body>
+  <div id="container">
+      <header id="header">
+    <div id="banner"></div>
+    <div id="header-outer">
+        <div id="header-menu" class="header-menu-pos animated">
+            <div class="header-menu-container">
+                <a href="/" class="left">
+                    <span class="site-title">huxiaojia&#39;s Blog</span>
+                </a>
+                <nav id="header-menu-nav" class="right">
+                    
+                    <a href="/">
+                        <i class="fa fa-home"></i>
+                        <span>Home</span>
+                    </a>
+                    
+                    <a href="/archives">
+                        <i class="fa fa-archive"></i>
+                        <span>Archives</span>
+                    </a>
+                    
+                    <a href="/about">
+                        <i class="fa fa-user"></i>
+                        <span>About</span>
+                    </a>
+                    
+                </nav>
+                <a class="mobile-header-menu-button">
+                    <i class="fa fa-bars"></i>
+                </a>
+            </div>
+        </div>
+        <div id="header-row">
+            <div id="logo">
+                <a href="/">
+                    <img src="/images/logo.jpg" width="60px" height="60px" alt="logo">
+                </a>
+            </div>
+            <div class="header-info">
+                <div id="header-title">
+                    
+                    <h2>
+                        huxiaojia&#39;s Blog
+                    </h2>
+                    
+                </div>
+                <div id="header-description">
+                    
+                    <h3>
+                        烟花一点上晴空 白云一浮荡烟火
+                    </h3>
+                    
+                </div>
+            </div>
+            <nav class="header-nav">
+                <div class="social">
+                    
+                        <a title="huxiaojia" target="_blank" href="//minhow.com">
+                            <i class="fa fa-home fa-2x"></i></a>
+                    
+                        <a title="Github" target="_blank" href="//github.com/OctoberCity">
+                            <i class="fa fa-github fa-2x"></i></a>
+                    
+                </div>
+            </nav>
+        </div>
+    </div>
+</header>
+      <div class="outer">
+        <section id="main" class="body-wrap"><article id="post-liun系统的基本命令" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="post-title" itemprop="name">
+      liun系统的基本命令
+    </h1>
+    <div class="post-title-bar">
+      <ul>
+          
+        <li>
+          <i class="fa fa-calendar"></i>  2018-08-13
+        </li>
+        <li>
+          <i class="fa fa-eye"></i>
+          <span id="busuanzi_value_page_pv"></span>
+        </li>
+      </ul>
+    </div>
+  
+
+          
+      </header>
+    
+    <div class="article-entry post-content" itemprop="articleBody">
+      
+            
+            <h5 id="软件操作命令"><a href="#软件操作命令" class="headerlink" title="软件操作命令"></a>软件操作命令</h5><ol>
+<li>软件包管理<blockquote>
+<p>yum</p>
+</blockquote>
+</li>
+<li>安装软件<blockquote>
+<p>yum install ***</p>
+</blockquote>
+</li>
+<li>卸载软件<blockquote>
+<p>yum remove ***</p>
+</blockquote>
+</li>
+<li>搜索软件<blockquote>
+<p>yum search ***</p>
+</blockquote>
+</li>
+<li>清理缓存<blockquote>
+<p>yum clean packages</p>
+</blockquote>
+</li>
+<li>列出已经安装的软件<blockquote>
+<p>yum list</p>
+</blockquote>
+</li>
+<li>软件包信息<blockquote>
+<p>yum info ***</p>
+</blockquote>
+</li>
+</ol>
+<h5 id="服务器硬件资源和磁盘操作命令"><a href="#服务器硬件资源和磁盘操作命令" class="headerlink" title="服务器硬件资源和磁盘操作命令"></a>服务器硬件资源和磁盘操作命令</h5><ol>
+<li>内存<blockquote>
+<p> free-m</p>
+</blockquote>
+</li>
+<li>硬盘<blockquote>
+<p>  df-h</p>
+</blockquote>
+</li>
+<li>负载(cpu超过了大于1)<blockquote>
+<p>w/top</p>
+</blockquote>
+</li>
+<li>cpu/核数<blockquote>
+<p>cat /porc/cupinfo<br>5.格式化磁盘<br>fdisk</p>
+</blockquote>
+</li>
+</ol>
+<h5 id="文件和文件夹操作命令"><a href="#文件和文件夹操作命令" class="headerlink" title="文件和文件夹操作命令"></a>文件和文件夹操作命令</h5><ol>
+<li>linux文件目录结构</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th>释义</th>
+<th>符号</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>根目录</td>
+<td>/</td>
+</tr>
+<tr>
+<td>家目录</td>
+<td>/home</td>
+</tr>
+<tr>
+<td>配置目录</td>
+<td>etc</td>
+</tr>
+<tr>
+<td>用户程序目录</td>
+<td>usr</td>
+</tr>
+<tr>
+<td>临时目录</td>
+<td>tmp</td>
+</tr>
+</tbody>
+</table>
+<p>也如下树形图：<br><img src="https://note.youdao.com/yws/public/resource/2366cfb1a6a91c297a4562260c257a23/xmlnote/192C6CA50D1C48AE8E4A75D0ED495B40/5935" alt="image"></p>
+<ol start="2">
+<li>文件基本操作命令</li>
+</ol>
+<ul>
+<li><p>进入目录      cd</p>
+<blockquote>
+<p>cd /home  如果没有home代表你还有新建用户</p>
+</blockquote>
+</li>
+<li><p>展现文件夹中所有  ls al</p>
+<blockquote>
+<p>ls al</p>
+</blockquote>
+</li>
+<li><p>查看目录下的文件</p>
+<blockquote>
+<p>ls</p>
+</blockquote>
+</li>
+<li><p>新建文件</p>
+<blockquote>
+<p>touch  XXXX</p>
+</blockquote>
+</li>
+<li><p>新建文件夹</p>
+<blockquote>
+<p>mkdir  XXXX</p>
+</blockquote>
+</li>
+<li><p>新建多级目录</p>
+<blockquote>
+<p>mkdir -p  dir1/dir2/dir3</p>
+</blockquote>
+</li>
+<li><p>删除文件和目录</p>
+<blockquote>
+<p>rm XXXXX</p>
+</blockquote>
+</li>
+<li><p>删除目录</p>
+<blockquote>
+<p>rm -r XXXXX</p>
+</blockquote>
+</li>
+<li><p>强制删除文件目录</p>
+<blockquote>
+<p>rm -rf XXXXX</p>
+</blockquote>
+</li>
+<li><p>复制</p>
+<blockquote>
+<p>cp 一个路径  另一个路径</p>
+</blockquote>
+</li>
+<li><p>移动</p>
+<blockquote>
+<p>mv  一个路径  另一个路径</p>
+</blockquote>
+</li>
+<li><p>显示当前路径</p>
+<blockquote>
+<p>pwd  </p>
+</blockquote>
+</li>
+</ul>
+<ol start="3">
+<li>文本编辑vim</li>
+</ol>
+<ul>
+<li>插入<blockquote>
+</blockquote>
+</li>
+</ul>
+<p>-</p>
+<ol start="4">
+<li>文件权限 421</li>
+<li>文件搜索，查找，</li>
+<li>文件压缩解压</li>
+</ol>
+<h5 id="系统用户操作命令"><a href="#系统用户操作命令" class="headerlink" title="系统用户操作命令"></a>系统用户操作命令</h5><h5 id="防火墙相关命令"><a href="#防火墙相关命令" class="headerlink" title="防火墙相关命令"></a>防火墙相关命令</h5><h5 id="提权操作sudo和文件传输操作"><a href="#提权操作sudo和文件传输操作" class="headerlink" title="提权操作sudo和文件传输操作"></a>提权操作sudo和文件传输操作</h5>
+            <div class="post-copyright">
+    <div class="content">
+        <p>最后更新： 2018年11月14日 10:40</p>
+        <p>原始链接： <a class="post-url" href="/2018/08/13/liun系统的基本命令/" title="liun系统的基本命令">http://yoursite.com/2018/08/13/liun系统的基本命令/</a></p>
+        <footer>
+            <a href="http://yoursite.com">
+                <img src="/images/logo.jpg" alt="John Doe">
+                John Doe
+            </a>
+        </footer>
+    </div>
+</div>
+
+      
+        
+            
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;">赏</a>
+</div>
+
+<div id="reward" class="post-modal reward-lay">
+    <a class="close" href="javascript:;" id="reward-close">×</a>
+    <span class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        请我吃糖~
+        <i class="icon icon-quote-right"></i>
+    </span>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/images/wechat_code.jpg" alt="打赏二维码">
+        </div>
+        <div class="reward-select">
+            
+            <label class="reward-select-item checked" data-id="wechat" data-wechat="/images/wechat_code.jpg">
+                <img class="reward-select-item-wechat" src="/images/wechat.png" alt="微信">
+            </label>
+            
+            
+            <label class="reward-select-item" data-id="alipay" data-alipay="/images/alipay_code.jpg">
+                <img class="reward-select-item-alipay" src="/images/alipay.png" alt="支付宝">
+            </label>
+            
+        </div>
+    </div>
+</div>
+
+
+        
+    </div>
+    <footer class="article-footer">
+        
+        
+<div class="post-share">
+    <a href="javascript:;" id="share-sub" class="post-share-fab">
+        <i class="fa fa-share-alt"></i>
+    </a>
+    <div class="post-share-list" id="share-list">
+        <ul class="share-icons">
+          <li>
+            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://yoursite.com/2018/08/13/liun系统的基本命令/&title=《liun系统的基本命令》 — Hexo&pic=http://yoursite.comimages/logo.jpg" data-title="微博">
+              <i class="fa fa-weibo"></i>
+            </a>
+          </li>
+          <li>
+            <a class="weixin share-sns" id="wxFab" href="javascript:;" data-title="微信">
+              <i class="fa fa-weixin"></i>
+            </a>
+          </li>
+          <li>
+            <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://yoursite.com/2018/08/13/liun系统的基本命令/&title=《liun系统的基本命令》 — Hexo&source=" data-title="QQ">
+              <i class="fa fa-qq"></i>
+            </a>
+          </li>
+          <li>
+            <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2018/08/13/liun系统的基本命令/" data-title="Facebook">
+              <i class="fa fa-facebook"></i>
+            </a>
+          </li>
+          <li>
+            <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《liun系统的基本命令》 — Hexo&url=http://yoursite.com/2018/08/13/liun系统的基本命令/&via=http://yoursite.com" data-title="Twitter">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+          <li>
+            <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://yoursite.com/2018/08/13/liun系统的基本命令/" data-title="Google+">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        </ul>
+     </div>
+</div>
+<div class="post-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;" id="wxShare-close">×</a>
+    <p>扫一扫，分享到微信</p>
+    <img src="//api.qrserver.com/v1/create-qr-code/?data=http://yoursite.com/2018/08/13/liun系统的基本命令/" alt="微信分享二维码">
+</div>
+
+<div class="mask"></div>
+
+        
+        <ul class="article-footer-menu">
+            
+            
+  <li class="article-footer-tags">
+    <i class="fa fa-tags"></i>
+      
+    <a href="/tags/linux/" class="color1">linux</a>
+      
+  </li>
+
+        </ul>
+        
+    </footer>
+  </div>
+</article>
+
+
+    <aside class="post-toc-pos post-toc-top" id="post-toc">
+        <nav class="post-toc-wrap">
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#软件操作命令"><span class="post-toc-text">软件操作命令</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#服务器硬件资源和磁盘操作命令"><span class="post-toc-text">服务器硬件资源和磁盘操作命令</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#文件和文件夹操作命令"><span class="post-toc-text">文件和文件夹操作命令</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#系统用户操作命令"><span class="post-toc-text">系统用户操作命令</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#防火墙相关命令"><span class="post-toc-text">防火墙相关命令</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#提权操作sudo和文件传输操作"><span class="post-toc-text">提权操作sudo和文件传输操作</span></a></li></ol>
+        </nav>
+    </aside>
+    
+
+<nav id="article-nav">
+  
+  
+    <a href="/2018/08/13/linux系统的基本认识/" id="article-nav-older" class="article-nav-link-wrap">
+      <span class="article-nav-title">linux系统的基本认识</span>
+      <i class="fa fa-hand-o-right" aria-hidden="true"></i>
+    </a>
+  
+</nav>
+
+
+
+    
+</section>
+        
+      </div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+<p>
+    <span id="busuanzi_container_site_uv" style="display:none">
+        总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style="display:none">
+        总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+      <p>
+        Powered by  <a href="http://hexo.io/" target="_blank">Hexo</a>
+        Theme <a href="//github.com/wongminho/hexo-theme-miho" target="_blank">MiHo</a>
+      &copy; 2018 John Doe<br>
+      </p>
+    </div>
+  </div>
+</footer>
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<script>
+  var mihoConfig = {
+      root: "http://yoursite.com",
+      animate: true,
+      isHome: false,
+      share: true,
+      reward: 1
+  }
+</script>
+<div class="sidebar">
+    <div id="sidebar-search" title="Search">
+        <i class="fa fa-search"></i>
+    </div>
+    <div id="sidebar-category" title="Categories">
+        <i class="fa fa-book"></i>
+    </div>
+    <div id="sidebar-tag" title="Tags">
+        <i class="fa fa-tags"></i>
+    </div>
+    <div id="sidebar-top">
+        <span class="sidebar-top-icon"><i class="fa fa-angle-up"></i></span>
+    </div>
+</div>
+<div class="sidebar-menu-box" id="sidebar-menu-box">
+    <div class="sidebar-menu-box-container">
+        <div id="sidebar-menu-box-categories">
+            
+        </div>
+        <div id="sidebar-menu-box-tags">
+            <a href="/tags/linux/" style="font-size: 15px;">linux</a> <a href="/tags/redis/" style="font-size: 20px;">redis</a> <a href="/tags/博客/" style="font-size: 10px;">博客</a>
+        </div>
+    </div>
+    <a href="javascript:;" class="sidebar-menu-box-close">&times;</a>
+</div>
+<div class="mobile-header-menu-nav" id="mobile-header-menu-nav">
+    <div class="mobile-header-menu-container">
+        <span class="title">Menus</span>
+        <ul class="mobile-header-menu-navbar">
+            
+            <li>
+                <a href="/">
+                    <i class="fa fa-home"></i><span>Home</span>
+                </a>
+            </li>
+            
+            <li>
+                <a href="/archives">
+                    <i class="fa fa-archive"></i><span>Archives</span>
+                </a>
+            </li>
+            
+            <li>
+                <a href="/about">
+                    <i class="fa fa-user"></i><span>About</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    <div class="mobile-header-tag-container">
+        <span class="title">Tags</span>
+        <div id="mobile-header-container-tags">
+            <a href="/tags/linux/" style="font-size: 15px;">linux</a> <a href="/tags/redis/" style="font-size: 20px;">redis</a> <a href="/tags/博客/" style="font-size: 10px;">博客</a>
+        </div>
+    </div>
+</div>
+<div class="search-wrap">
+    <span class="search-close">&times;</span>
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+            <i class="icon icon-lg icon-chevron-left"></i>
+        </a>
+        <input class="search-field" placeholder="Search..." id="keywords">
+        <a id="search-submit" href="javascript:;">
+            <i class="fa fa-search"></i>
+        </a>
+    <div class="search-container" id="search-container">
+        <ul class="search-result" id="search-result">
+        </ul>
+    </div>
+</div>
+
+<div id="search-tpl">
+    <li class="search-result-item">
+        <a href="{url}" class="search-item-li">
+            <span class="search-item-li-title" title="{title}">{title}</span>
+        </a>
+    </li>
+</div>
+<script src="/js/search.js"></script>
+<script src="/js/main.js"></script>
+
+
+  <script src="//cdn.bootcss.com/particles.js/2.0.0/particles.min.js"></script>
+  <div id="particles"></div>
+  <script src="/js/particles.js"></script>
+
+
+
+
+
+
+
+  <link rel="stylesheet" href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css">
+  <script src="//cdn.bootcss.com/scrollReveal.js/3.0.5/scrollreveal.js"></script>
+  <script src="/js/animate.js"></script>
+
+
+  <script src="/js/pop-img.js"></script>
+  <script>
+     $(".article-entry p img").popImg();
+  </script>
+
+  </div>
+</body>
+</html>

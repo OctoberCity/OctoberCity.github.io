@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+  <title>初识redis-redis的其他功能 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+    <meta name="keywords" content="huxiaojia Blog">
+  
+  <meta name="description" content="慢查询 生命周期 1.发送命令   两个配置 slowlog-max-len先进先出队列长度 default:128        配置：config set 意义：慢查询队列最大长度 slowlog-log-slower-than 慢查询阈值 default :10000  配置：config set 意义：记录执行时间超过阈值的查询   三个命令 slowlog get[n]获取慢查询队列 s">
+<meta name="keywords" content="redis">
+<meta property="og:type" content="article">
+<meta property="og:title" content="初识redis-redis的其他功能">
+<meta property="og:url" content="http://yoursite.com/2018/08/13/初识redis-redis的其他功能/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="慢查询 生命周期 1.发送命令   两个配置 slowlog-max-len先进先出队列长度 default:128        配置：config set 意义：慢查询队列最大长度 slowlog-log-slower-than 慢查询阈值 default :10000  配置：config set 意义：记录执行时间超过阈值的查询   三个命令 slowlog get[n]获取慢查询队列 s">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-11-13T13:08:28.805Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="初识redis-redis的其他功能">
+<meta name="twitter:description" content="慢查询 生命周期 1.发送命令   两个配置 slowlog-max-len先进先出队列长度 default:128        配置：config set 意义：慢查询队列最大长度 slowlog-log-slower-than 慢查询阈值 default :10000  配置：config set 意义：记录执行时间超过阈值的查询   三个命令 slowlog get[n]获取慢查询队列 s">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
+  <script src="/js/pace.min.js"></script>
+  
+
+  
+  
+
+</head>
+</html>
+<body>
+  <div id="container">
+      <header id="header">
+    <div id="banner"></div>
+    <div id="header-outer">
+        <div id="header-menu" class="header-menu-pos animated">
+            <div class="header-menu-container">
+                <a href="/" class="left">
+                    <span class="site-title">huxiaojia&#39;s Blog</span>
+                </a>
+                <nav id="header-menu-nav" class="right">
+                    
+                    <a href="/">
+                        <i class="fa fa-home"></i>
+                        <span>Home</span>
+                    </a>
+                    
+                    <a href="/archives">
+                        <i class="fa fa-archive"></i>
+                        <span>Archives</span>
+                    </a>
+                    
+                    <a href="/about">
+                        <i class="fa fa-user"></i>
+                        <span>About</span>
+                    </a>
+                    
+                </nav>
+                <a class="mobile-header-menu-button">
+                    <i class="fa fa-bars"></i>
+                </a>
+            </div>
+        </div>
+        <div id="header-row">
+            <div id="logo">
+                <a href="/">
+                    <img src="/images/logo.jpg" width="60px" height="60px" alt="logo">
+                </a>
+            </div>
+            <div class="header-info">
+                <div id="header-title">
+                    
+                    <h2>
+                        huxiaojia&#39;s Blog
+                    </h2>
+                    
+                </div>
+                <div id="header-description">
+                    
+                    <h3>
+                        烟花一点上晴空 白云一浮荡烟火
+                    </h3>
+                    
+                </div>
+            </div>
+            <nav class="header-nav">
+                <div class="social">
+                    
+                        <a title="huxiaojia" target="_blank" href="//minhow.com">
+                            <i class="fa fa-home fa-2x"></i></a>
+                    
+                        <a title="Github" target="_blank" href="//github.com/OctoberCity">
+                            <i class="fa fa-github fa-2x"></i></a>
+                    
+                </div>
+            </nav>
+        </div>
+    </div>
+</header>
+      <div class="outer">
+        <section id="main" class="body-wrap"><article id="post-初识redis-redis的其他功能" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="post-title" itemprop="name">
+      初识redis-redis的其他功能
+    </h1>
+    <div class="post-title-bar">
+      <ul>
+          
+        <li>
+          <i class="fa fa-calendar"></i>  2018-08-13
+        </li>
+        <li>
+          <i class="fa fa-eye"></i>
+          <span id="busuanzi_value_page_pv"></span>
+        </li>
+      </ul>
+    </div>
+  
+
+          
+      </header>
+    
+    <div class="article-entry post-content" itemprop="articleBody">
+      
+            
+            <h4 id="慢查询"><a href="#慢查询" class="headerlink" title="慢查询"></a>慢查询</h4><ul>
+<li>生命周期<ul>
+<li>1.发送命令</li>
+</ul>
+</li>
+<li>两个配置<ol>
+<li>slowlog-max-len先进先出队列长度 default:128        配置：config set 意义：慢查询队列最大长度</li>
+<li>slowlog-log-slower-than 慢查询阈值 default :10000  配置：config set 意义：记录执行时间超过阈值的查询</li>
+</ol>
+</li>
+<li>三个命令<ol>
+<li>slowlog get[n]获取慢查询队列</li>
+<li>slowlog len 获取慢查询长度</li>
+<li>slowlog reset 清空慢查询</li>
+</ol>
+</li>
+<li>运维经验<ul>
+<li>slow-max-len </li>
+<li>slowlog-log-slower-than</li>
+</ul>
+</li>
+</ul>
+<h4 id="pipeline"><a href="#pipeline" class="headerlink" title="pipeline"></a>pipeline</h4><ul>
+<li>流水线=1次网络+n次命令  pipeline打包多次网络请求</li>
+<li>非原子操作</li>
+<li>pipeline只能作用一个redis的节点</li>
+</ul>
+<h4 id="HyperLogLog"><a href="#HyperLogLog" class="headerlink" title="HyperLogLog"></a>HyperLogLog</h4><h4 id="bitmap"><a href="#bitmap" class="headerlink" title="bitmap"></a>bitmap</h4><ul>
+<li><p>位图能操作value的bit二进制数据</p>
+<ul>
+<li>setbit key index value 设置该值二进制第index的值</li>
+<li>getbit key offset    获取该值二进制第index的值</li>
+<li>bitcount key [start,end] 获取该值二进制start-end的值是1的个数</li>
+<li>bitop</li>
+<li>bitpos</li>
+</ul>
+</li>
+<li><p>例子场景</p>
+<blockquote>
+<p>set      32位      50000000       200mb<br>bitmap   1位       100000000      12.5mb<br>大的数据使用bitmap,小的用set</p>
+</blockquote>
+</li>
+</ul>
+<h4 id="发布订阅"><a href="#发布订阅" class="headerlink" title="发布订阅"></a>发布订阅</h4><ul>
+<li>角色<br>1.发布者(publisher)<br>2.订阅者subscriber<br>3.频道(channel)<br>pub发布给频道，sub订阅了频道，接收推送</li>
+<li>命令<ul>
+<li>publish channel message 返回订阅者数量</li>
+<li>subscribe [channel]   订阅频道</li>
+<li>unsubscribe [channel] 取消频道</li>
+<li>psubscribe[v*] 匹配符合模式的1订阅</li>
+<li>punsubscribe[v*] 匹配符合模式的退订</li>
+<li>pubsu channels 列出至少有一个订阅者的频道</li>
+<li>pubsub numsub [channel..] 列出频道制定数目的订阅者</li>
+</ul>
+</li>
+<li>消息队列<ul>
+<li>抢，pub发布，只有一个sub能抢到</li>
+</ul>
+</li>
+</ul>
+<h4 id="GEO-地理信息定位"><a href="#GEO-地理信息定位" class="headerlink" title="GEO(地理信息定位)"></a>GEO(地理信息定位)</h4><ul>
+<li>存储经纬度信息</li>
+<li>范围计算</li>
+<li>计算两地距离</li>
+</ul>
+
+            <div class="post-copyright">
+    <div class="content">
+        <p>最后更新： 2018年11月13日 21:08</p>
+        <p>原始链接： <a class="post-url" href="/2018/08/13/初识redis-redis的其他功能/" title="初识redis-redis的其他功能">http://yoursite.com/2018/08/13/初识redis-redis的其他功能/</a></p>
+        <footer>
+            <a href="http://yoursite.com">
+                <img src="/images/logo.jpg" alt="John Doe">
+                John Doe
+            </a>
+        </footer>
+    </div>
+</div>
+
+      
+        
+            
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;">赏</a>
+</div>
+
+<div id="reward" class="post-modal reward-lay">
+    <a class="close" href="javascript:;" id="reward-close">×</a>
+    <span class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        请我吃糖~
+        <i class="icon icon-quote-right"></i>
+    </span>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/images/wechat_code.jpg" alt="打赏二维码">
+        </div>
+        <div class="reward-select">
+            
+            <label class="reward-select-item checked" data-id="wechat" data-wechat="/images/wechat_code.jpg">
+                <img class="reward-select-item-wechat" src="/images/wechat.png" alt="微信">
+            </label>
+            
+            
+            <label class="reward-select-item" data-id="alipay" data-alipay="/images/alipay_code.jpg">
+                <img class="reward-select-item-alipay" src="/images/alipay.png" alt="支付宝">
+            </label>
+            
+        </div>
+    </div>
+</div>
+
+
+        
+    </div>
+    <footer class="article-footer">
+        
+        
+<div class="post-share">
+    <a href="javascript:;" id="share-sub" class="post-share-fab">
+        <i class="fa fa-share-alt"></i>
+    </a>
+    <div class="post-share-list" id="share-list">
+        <ul class="share-icons">
+          <li>
+            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://yoursite.com/2018/08/13/初识redis-redis的其他功能/&title=《初识redis-redis的其他功能》 — Hexo&pic=http://yoursite.comimages/logo.jpg" data-title="微博">
+              <i class="fa fa-weibo"></i>
+            </a>
+          </li>
+          <li>
+            <a class="weixin share-sns" id="wxFab" href="javascript:;" data-title="微信">
+              <i class="fa fa-weixin"></i>
+            </a>
+          </li>
+          <li>
+            <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://yoursite.com/2018/08/13/初识redis-redis的其他功能/&title=《初识redis-redis的其他功能》 — Hexo&source=" data-title="QQ">
+              <i class="fa fa-qq"></i>
+            </a>
+          </li>
+          <li>
+            <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2018/08/13/初识redis-redis的其他功能/" data-title="Facebook">
+              <i class="fa fa-facebook"></i>
+            </a>
+          </li>
+          <li>
+            <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《初识redis-redis的其他功能》 — Hexo&url=http://yoursite.com/2018/08/13/初识redis-redis的其他功能/&via=http://yoursite.com" data-title="Twitter">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+          <li>
+            <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://yoursite.com/2018/08/13/初识redis-redis的其他功能/" data-title="Google+">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        </ul>
+     </div>
+</div>
+<div class="post-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;" id="wxShare-close">×</a>
+    <p>扫一扫，分享到微信</p>
+    <img src="//api.qrserver.com/v1/create-qr-code/?data=http://yoursite.com/2018/08/13/初识redis-redis的其他功能/" alt="微信分享二维码">
+</div>
+
+<div class="mask"></div>
+
+        
+        <ul class="article-footer-menu">
+            
+            
+  <li class="article-footer-tags">
+    <i class="fa fa-tags"></i>
+      
+    <a href="/tags/redis/" class="color1">redis</a>
+      
+  </li>
+
+        </ul>
+        
+    </footer>
+  </div>
+</article>
+
+
+    <aside class="post-toc-pos post-toc-top" id="post-toc">
+        <nav class="post-toc-wrap">
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#慢查询"><span class="post-toc-text">慢查询</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#pipeline"><span class="post-toc-text">pipeline</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#HyperLogLog"><span class="post-toc-text">HyperLogLog</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#bitmap"><span class="post-toc-text">bitmap</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#发布订阅"><span class="post-toc-text">发布订阅</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#GEO-地理信息定位"><span class="post-toc-text">GEO(地理信息定位)</span></a></li></ol>
+        </nav>
+    </aside>
+    
+
+<nav id="article-nav">
+  
+    <a href="/2018/08/13/linux系统的基本认识/" id="article-nav-newer" class="article-nav-link-wrap">
+
+      <span class="article-nav-title">
+        <i class="fa fa-hand-o-left" aria-hidden="true"></i>
+        
+          linux系统的基本认识
+        
+      </span>
+    </a>
+  
+  
+    <a href="/2018/08/13/初识redis-基本类型以及使用场景/" id="article-nav-older" class="article-nav-link-wrap">
+      <span class="article-nav-title">初识redis-基本类型以及使用场景</span>
+      <i class="fa fa-hand-o-right" aria-hidden="true"></i>
+    </a>
+  
+</nav>
+
+
+
+    
+</section>
+        
+      </div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+<p>
+    <span id="busuanzi_container_site_uv" style="display:none">
+        总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style="display:none">
+        总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+      <p>
+        Powered by  <a href="http://hexo.io/" target="_blank">Hexo</a>
+        Theme <a href="//github.com/wongminho/hexo-theme-miho" target="_blank">MiHo</a>
+      &copy; 2018 John Doe<br>
+      </p>
+    </div>
+  </div>
+</footer>
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<script>
+  var mihoConfig = {
+      root: "http://yoursite.com",
+      animate: true,
+      isHome: false,
+      share: true,
+      reward: 1
+  }
+</script>
+<div class="sidebar">
+    <div id="sidebar-search" title="Search">
+        <i class="fa fa-search"></i>
+    </div>
+    <div id="sidebar-category" title="Categories">
+        <i class="fa fa-book"></i>
+    </div>
+    <div id="sidebar-tag" title="Tags">
+        <i class="fa fa-tags"></i>
+    </div>
+    <div id="sidebar-top">
+        <span class="sidebar-top-icon"><i class="fa fa-angle-up"></i></span>
+    </div>
+</div>
+<div class="sidebar-menu-box" id="sidebar-menu-box">
+    <div class="sidebar-menu-box-container">
+        <div id="sidebar-menu-box-categories">
+            
+        </div>
+        <div id="sidebar-menu-box-tags">
+            <a href="/tags/linux/" style="font-size: 15px;">linux</a> <a href="/tags/redis/" style="font-size: 20px;">redis</a> <a href="/tags/博客/" style="font-size: 10px;">博客</a>
+        </div>
+    </div>
+    <a href="javascript:;" class="sidebar-menu-box-close">&times;</a>
+</div>
+<div class="mobile-header-menu-nav" id="mobile-header-menu-nav">
+    <div class="mobile-header-menu-container">
+        <span class="title">Menus</span>
+        <ul class="mobile-header-menu-navbar">
+            
+            <li>
+                <a href="/">
+                    <i class="fa fa-home"></i><span>Home</span>
+                </a>
+            </li>
+            
+            <li>
+                <a href="/archives">
+                    <i class="fa fa-archive"></i><span>Archives</span>
+                </a>
+            </li>
+            
+            <li>
+                <a href="/about">
+                    <i class="fa fa-user"></i><span>About</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    <div class="mobile-header-tag-container">
+        <span class="title">Tags</span>
+        <div id="mobile-header-container-tags">
+            <a href="/tags/linux/" style="font-size: 15px;">linux</a> <a href="/tags/redis/" style="font-size: 20px;">redis</a> <a href="/tags/博客/" style="font-size: 10px;">博客</a>
+        </div>
+    </div>
+</div>
+<div class="search-wrap">
+    <span class="search-close">&times;</span>
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+            <i class="icon icon-lg icon-chevron-left"></i>
+        </a>
+        <input class="search-field" placeholder="Search..." id="keywords">
+        <a id="search-submit" href="javascript:;">
+            <i class="fa fa-search"></i>
+        </a>
+    <div class="search-container" id="search-container">
+        <ul class="search-result" id="search-result">
+        </ul>
+    </div>
+</div>
+
+<div id="search-tpl">
+    <li class="search-result-item">
+        <a href="{url}" class="search-item-li">
+            <span class="search-item-li-title" title="{title}">{title}</span>
+        </a>
+    </li>
+</div>
+<script src="/js/search.js"></script>
+<script src="/js/main.js"></script>
+
+
+  <script src="//cdn.bootcss.com/particles.js/2.0.0/particles.min.js"></script>
+  <div id="particles"></div>
+  <script src="/js/particles.js"></script>
+
+
+
+
+
+
+
+  <link rel="stylesheet" href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css">
+  <script src="//cdn.bootcss.com/scrollReveal.js/3.0.5/scrollreveal.js"></script>
+  <script src="/js/animate.js"></script>
+
+
+  <script src="/js/pop-img.js"></script>
+  <script>
+     $(".article-entry p img").popImg();
+  </script>
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+  <title>window下搭建hexo的github博客 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+    <meta name="keywords" content="huxiaojia Blog">
+  
+  <meta name="description" content="window下搭建hexo的github博客 写过一些笔记，但是大多在有道云笔记上，想搬到一个博客上，一开始选了codingPage,但是代码一般放在码云或者github,如今github的网还算快，所以放在githubPages上。     1. 先决条件 安装了node.js,npm(随node安装),git,gitbash. 拥有github账号 配置好了git与github的公钥(能上传下">
+<meta name="keywords" content="博客">
+<meta property="og:type" content="article">
+<meta property="og:title" content="window下搭建hexo的github博客">
+<meta property="og:url" content="http://yoursite.com/2018/06/12/window下搭建hexo的github博客/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="window下搭建hexo的github博客 写过一些笔记，但是大多在有道云笔记上，想搬到一个博客上，一开始选了codingPage,但是代码一般放在码云或者github,如今github的网还算快，所以放在githubPages上。     1. 先决条件 安装了node.js,npm(随node安装),git,gitbash. 拥有github账号 配置好了git与github的公钥(能上传下">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="https://note.youdao.com/yws/public/resource/2366cfb1a6a91c297a4562260c257a23/xmlnote/F510144DFA6240F4B40A48CBE2820CA4/6026">
+<meta property="og:image" content="https://note.youdao.com/yws/public/resource/2366cfb1a6a91c297a4562260c257a23/xmlnote/3A3C8821FE1E47039488DACEDAA5C181/6041">
+<meta property="og:image" content="https://note.youdao.com/yws/public/resource/2366cfb1a6a91c297a4562260c257a23/xmlnote/E02B6EFAC40742C7812D7B9AAC235D82/6070">
+<meta property="og:image" content="https://note.youdao.com/yws/public/resource/2366cfb1a6a91c297a4562260c257a23/xmlnote/82CA14FD8C654910B8E5A64CBFF53642/6085">
+<meta property="og:image" content="https://note.youdao.com/yws/public/resource/2366cfb1a6a91c297a4562260c257a23/xmlnote/8978E90EAE4247FD8F490A6EE2FBADCD/6102">
+<meta property="og:updated_time" content="2018-11-14T03:09:52.487Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="window下搭建hexo的github博客">
+<meta name="twitter:description" content="window下搭建hexo的github博客 写过一些笔记，但是大多在有道云笔记上，想搬到一个博客上，一开始选了codingPage,但是代码一般放在码云或者github,如今github的网还算快，所以放在githubPages上。     1. 先决条件 安装了node.js,npm(随node安装),git,gitbash. 拥有github账号 配置好了git与github的公钥(能上传下">
+<meta name="twitter:image" content="https://note.youdao.com/yws/public/resource/2366cfb1a6a91c297a4562260c257a23/xmlnote/F510144DFA6240F4B40A48CBE2820CA4/6026">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
+  <script src="/js/pace.min.js"></script>
+  
+
+  
+  
+
+</head>
+</html>
+<body>
+  <div id="container">
+      <header id="header">
+    <div id="banner"></div>
+    <div id="header-outer">
+        <div id="header-menu" class="header-menu-pos animated">
+            <div class="header-menu-container">
+                <a href="/" class="left">
+                    <span class="site-title">huxiaojia&#39;s Blog</span>
+                </a>
+                <nav id="header-menu-nav" class="right">
+                    
+                    <a href="/">
+                        <i class="fa fa-home"></i>
+                        <span>Home</span>
+                    </a>
+                    
+                    <a href="/archives">
+                        <i class="fa fa-archive"></i>
+                        <span>Archives</span>
+                    </a>
+                    
+                    <a href="/about">
+                        <i class="fa fa-user"></i>
+                        <span>About</span>
+                    </a>
+                    
+                </nav>
+                <a class="mobile-header-menu-button">
+                    <i class="fa fa-bars"></i>
+                </a>
+            </div>
+        </div>
+        <div id="header-row">
+            <div id="logo">
+                <a href="/">
+                    <img src="/images/logo.jpg" width="60px" height="60px" alt="logo">
+                </a>
+            </div>
+            <div class="header-info">
+                <div id="header-title">
+                    
+                    <h2>
+                        huxiaojia&#39;s Blog
+                    </h2>
+                    
+                </div>
+                <div id="header-description">
+                    
+                    <h3>
+                        烟花一点上晴空 白云一浮荡烟火
+                    </h3>
+                    
+                </div>
+            </div>
+            <nav class="header-nav">
+                <div class="social">
+                    
+                        <a title="huxiaojia" target="_blank" href="//minhow.com">
+                            <i class="fa fa-home fa-2x"></i></a>
+                    
+                        <a title="Github" target="_blank" href="//github.com/OctoberCity">
+                            <i class="fa fa-github fa-2x"></i></a>
+                    
+                </div>
+            </nav>
+        </div>
+    </div>
+</header>
+      <div class="outer">
+        <section id="main" class="body-wrap"><article id="post-window下搭建hexo的github博客" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="post-title" itemprop="name">
+      window下搭建hexo的github博客
+    </h1>
+    <div class="post-title-bar">
+      <ul>
+          
+        <li>
+          <i class="fa fa-calendar"></i>  2018-06-12
+        </li>
+        <li>
+          <i class="fa fa-eye"></i>
+          <span id="busuanzi_value_page_pv"></span>
+        </li>
+      </ul>
+    </div>
+  
+
+          
+      </header>
+    
+    <div class="article-entry post-content" itemprop="articleBody">
+      
+            
+            <h3 id="window下搭建hexo的github博客"><a href="#window下搭建hexo的github博客" class="headerlink" title="window下搭建hexo的github博客"></a>window下搭建hexo的github博客</h3><blockquote>
+<p>写过一些笔记，但是大多在有道云笔记上，想搬到一个博客上，一开始选了codingPage,但是代码一般放在码云或者github,如今github的网还算快，所以放在githubPages上。   </p>
+</blockquote>
+<h4 id="1-先决条件"><a href="#1-先决条件" class="headerlink" title="1. 先决条件"></a>1. 先决条件</h4><ul>
+<li>安装了node.js,npm(随node安装),git,gitbash.</li>
+<li>拥有github账号</li>
+<li>配置好了git与github的公钥(能上传下载自己github项目)。</li>
+</ul>
+<h4 id="2-本地成功预览博客"><a href="#2-本地成功预览博客" class="headerlink" title="2. 本地成功预览博客"></a>2. 本地成功预览博客</h4><ul>
+<li><p>全局安装hexo</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo -g</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>创建的文件(比如blog),在文件夹中初始化hexo</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo init</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>安装将博客上传到github Pages的第三方包</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-deployer-git --save</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>配置与github的联动，即将代码上传的github地址，打开_config.yml，写下以下配<br>置,YourgithubName==&gt;比如我<a href="https://github.com/OctoberCity,那么yougithubName写OctoberCity" target="_blank" rel="noopener">https://github.com/OctoberCity,那么yougithubName写OctoberCity</a>.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">deploy:</span><br><span class="line">   type: git</span><br><span class="line">   repo: https://github.com/YourgithubName/YourgithubName.github.io.git</span><br><span class="line">   branch: master</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>本地预览(在blog文件夹中打开gitbash)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hexo  clean ：清空一下多余的东西比如public,每次都执行这个会比较好</span><br><span class="line">hexo  generate /hexo g ：将配置文件生成html,你会发现文件夹中多了public文件夹</span><br><span class="line">hexo  server :本地预览</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>代开浏览器,127.0.0:4000，展示如下<br><img src="https://note.youdao.com/yws/public/resource/2366cfb1a6a91c297a4562260c257a23/xmlnote/F510144DFA6240F4B40A48CBE2820CA4/6026" alt="image"></p>
+</li>
+</ul>
+<h4 id="3-部署到github"><a href="#3-部署到github" class="headerlink" title="3. 部署到github"></a>3. 部署到github</h4><ul>
+<li><p>登录github,新建一个仓库，以你github的名字，而这个仓库地址就是<a href="mailto:git@github.com" target="_blank" rel="noopener">git@github.com</a>:OctoberCity/OctoberCity.github.io.git<br><img src="https://note.youdao.com/yws/public/resource/2366cfb1a6a91c297a4562260c257a23/xmlnote/3A3C8821FE1E47039488DACEDAA5C181/6041" alt="image"></p>
+</li>
+<li><p>在blog配置博客配置文件_config.yml,repo就是你刚才新建的仓库地址</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">deploy:</span><br><span class="line">  type: git</span><br><span class="line">  repo: git@github.com:OctoberCity/OctoberCity.github.io.git</span><br><span class="line">  branch: master</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>将博客上传到gihub,执行一下命令</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hexo clean </span><br><span class="line">hexo generate</span><br><span class="line">hexo deploy</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>浏览器输入<a href="https://octobercity.github.io,OctoberCity是我的,你们换下就可以" target="_blank" rel="noopener">https://octobercity.github.io,OctoberCity是我的,你们换下就可以</a><br><img src="https://note.youdao.com/yws/public/resource/2366cfb1a6a91c297a4562260c257a23/xmlnote/E02B6EFAC40742C7812D7B9AAC235D82/6070" alt="image"></p>
+</li>
+</ul>
+<h4 id="4-换主题"><a href="#4-换主题" class="headerlink" title="4.换主题"></a>4.换主题</h4><ul>
+<li><p>主题地址</p>
+<blockquote>
+<p><a href="https://hexo.io/themes/" target="_blank" rel="noopener">https://hexo.io/themes/</a></p>
+</blockquote>
+</li>
+<li><p>下面是我使用的一个主题，有很简单的配置过程，每个主题配置具体不一样，但是大体上相同</p>
+<blockquote>
+<p><a href="https://blog.minhow.com/2017/08/01/blog/installation-configuration/" target="_blank" rel="noopener">https://blog.minhow.com/2017/08/01/blog/installation-configuration/</a></p>
+</blockquote>
+</li>
+<li><p>选择一个自己喜欢的主题，将主题下到blog/themes下面,你们可以使用我的这个试一下手</p>
+<blockquote>
+<p><img src="https://note.youdao.com/yws/public/resource/2366cfb1a6a91c297a4562260c257a23/xmlnote/82CA14FD8C654910B8E5A64CBFF53642/6085" alt="image"></p>
+</blockquote>
+</li>
+<li><p>在blog配置博客配置文件_config.yml,配置使用主题，我的是miho</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">theme: miho</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>先本地预览,成功之后步骤如上,</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hexo clean</span><br><span class="line">hexo g</span><br><span class="line">hexo server</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p><img src="https://note.youdao.com/yws/public/resource/2366cfb1a6a91c297a4562260c257a23/xmlnote/8978E90EAE4247FD8F490A6EE2FBADCD/6102" alt="image"></p>
+<h4 id="5-写文章"><a href="#5-写文章" class="headerlink" title="5.写文章"></a>5.写文章</h4><ul>
+<li>首先你要会基本markdown语法</li>
+<li><p>如何新建一个文章,你会发现在source\posts中多了一个newtest.md</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo new newtest</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>配置newtest.md的基本配置，在文章最上方需要配置title,date,tags,然后下方才是正文</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">title: liun系统的基本命令</span><br><span class="line">date: 2018-8-13 20:54:21</span><br><span class="line">tags:</span><br><span class="line">    - linux</span><br><span class="line">---</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>本地预览</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hexo clean </span><br><span class="line">hexo g</span><br><span class="line">hexo server</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="6-遇到的问题"><a href="#6-遇到的问题" class="headerlink" title="6.遇到的问题"></a>6.遇到的问题</h4><ul>
+<li><p>repo有的教程会写<a href="https://github.com/OctoberCity/OctoberCity.github.io，但我显示错误，换成这个git的地址可以。" target="_blank" rel="noopener">https://github.com/OctoberCity/OctoberCity.github.io，但我显示错误，换成这个git的地址可以。</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">deploy:</span><br><span class="line">  type: git</span><br><span class="line">  repo: git@github.com:OctoberCity/OctoberCity.github.io.git</span><br><span class="line">  branch: master</span><br><span class="line"></span><br><span class="line">`</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>自己图片logo太大,主题代码没有限制图片大小，加上img长宽限制即可，要做其他修改可以自行修改</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">blog\themes\miho\layout\_partial\header.ejs</span><br></pre></td></tr></table></figure></li>
+</ul>
+
+            <div class="post-copyright">
+    <div class="content">
+        <p>最后更新： 2018年11月14日 11:09</p>
+        <p>原始链接： <a class="post-url" href="/2018/06/12/window下搭建hexo的github博客/" title="window下搭建hexo的github博客">http://yoursite.com/2018/06/12/window下搭建hexo的github博客/</a></p>
+        <footer>
+            <a href="http://yoursite.com">
+                <img src="/images/logo.jpg" alt="John Doe">
+                John Doe
+            </a>
+        </footer>
+    </div>
+</div>
+
+      
+        
+            
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;">赏</a>
+</div>
+
+<div id="reward" class="post-modal reward-lay">
+    <a class="close" href="javascript:;" id="reward-close">×</a>
+    <span class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        请我吃糖~
+        <i class="icon icon-quote-right"></i>
+    </span>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/images/wechat_code.jpg" alt="打赏二维码">
+        </div>
+        <div class="reward-select">
+            
+            <label class="reward-select-item checked" data-id="wechat" data-wechat="/images/wechat_code.jpg">
+                <img class="reward-select-item-wechat" src="/images/wechat.png" alt="微信">
+            </label>
+            
+            
+            <label class="reward-select-item" data-id="alipay" data-alipay="/images/alipay_code.jpg">
+                <img class="reward-select-item-alipay" src="/images/alipay.png" alt="支付宝">
+            </label>
+            
+        </div>
+    </div>
+</div>
+
+
+        
+    </div>
+    <footer class="article-footer">
+        
+        
+<div class="post-share">
+    <a href="javascript:;" id="share-sub" class="post-share-fab">
+        <i class="fa fa-share-alt"></i>
+    </a>
+    <div class="post-share-list" id="share-list">
+        <ul class="share-icons">
+          <li>
+            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://yoursite.com/2018/06/12/window下搭建hexo的github博客/&title=《window下搭建hexo的github博客》 — Hexo&pic=http://yoursite.comimages/logo.jpg" data-title="微博">
+              <i class="fa fa-weibo"></i>
+            </a>
+          </li>
+          <li>
+            <a class="weixin share-sns" id="wxFab" href="javascript:;" data-title="微信">
+              <i class="fa fa-weixin"></i>
+            </a>
+          </li>
+          <li>
+            <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://yoursite.com/2018/06/12/window下搭建hexo的github博客/&title=《window下搭建hexo的github博客》 — Hexo&source=" data-title="QQ">
+              <i class="fa fa-qq"></i>
+            </a>
+          </li>
+          <li>
+            <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2018/06/12/window下搭建hexo的github博客/" data-title="Facebook">
+              <i class="fa fa-facebook"></i>
+            </a>
+          </li>
+          <li>
+            <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《window下搭建hexo的github博客》 — Hexo&url=http://yoursite.com/2018/06/12/window下搭建hexo的github博客/&via=http://yoursite.com" data-title="Twitter">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+          <li>
+            <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://yoursite.com/2018/06/12/window下搭建hexo的github博客/" data-title="Google+">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        </ul>
+     </div>
+</div>
+<div class="post-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;" id="wxShare-close">×</a>
+    <p>扫一扫，分享到微信</p>
+    <img src="//api.qrserver.com/v1/create-qr-code/?data=http://yoursite.com/2018/06/12/window下搭建hexo的github博客/" alt="微信分享二维码">
+</div>
+
+<div class="mask"></div>
+
+        
+        <ul class="article-footer-menu">
+            
+            
+  <li class="article-footer-tags">
+    <i class="fa fa-tags"></i>
+      
+    <a href="/tags/博客/" class="color3">博客</a>
+      
+  </li>
+
+        </ul>
+        
+    </footer>
+  </div>
+</article>
+
+
+    <aside class="post-toc-pos post-toc-top" id="post-toc">
+        <nav class="post-toc-wrap">
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#window下搭建hexo的github博客"><span class="post-toc-text">window下搭建hexo的github博客</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#1-先决条件"><span class="post-toc-text">1. 先决条件</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#2-本地成功预览博客"><span class="post-toc-text">2. 本地成功预览博客</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#3-部署到github"><span class="post-toc-text">3. 部署到github</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#4-换主题"><span class="post-toc-text">4.换主题</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#5-写文章"><span class="post-toc-text">5.写文章</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#6-遇到的问题"><span class="post-toc-text">6.遇到的问题</span></a></li></ol></li></ol>
+        </nav>
+    </aside>
+    
+
+<nav id="article-nav">
+  
+    <a href="/2018/08/13/初识redis/" id="article-nav-newer" class="article-nav-link-wrap">
+
+      <span class="article-nav-title">
+        <i class="fa fa-hand-o-left" aria-hidden="true"></i>
+        
+          初识redis
+        
+      </span>
+    </a>
+  
+  
+</nav>
+
+
+
+    
+</section>
+        
+      </div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+<p>
+    <span id="busuanzi_container_site_uv" style="display:none">
+        总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style="display:none">
+        总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+      <p>
+        Powered by  <a href="http://hexo.io/" target="_blank">Hexo</a>
+        Theme <a href="//github.com/wongminho/hexo-theme-miho" target="_blank">MiHo</a>
+      &copy; 2018 John Doe<br>
+      </p>
+    </div>
+  </div>
+</footer>
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<script>
+  var mihoConfig = {
+      root: "http://yoursite.com",
+      animate: true,
+      isHome: false,
+      share: true,
+      reward: 1
+  }
+</script>
+<div class="sidebar">
+    <div id="sidebar-search" title="Search">
+        <i class="fa fa-search"></i>
+    </div>
+    <div id="sidebar-category" title="Categories">
+        <i class="fa fa-book"></i>
+    </div>
+    <div id="sidebar-tag" title="Tags">
+        <i class="fa fa-tags"></i>
+    </div>
+    <div id="sidebar-top">
+        <span class="sidebar-top-icon"><i class="fa fa-angle-up"></i></span>
+    </div>
+</div>
+<div class="sidebar-menu-box" id="sidebar-menu-box">
+    <div class="sidebar-menu-box-container">
+        <div id="sidebar-menu-box-categories">
+            
+        </div>
+        <div id="sidebar-menu-box-tags">
+            <a href="/tags/linux/" style="font-size: 15px;">linux</a> <a href="/tags/redis/" style="font-size: 20px;">redis</a> <a href="/tags/博客/" style="font-size: 10px;">博客</a>
+        </div>
+    </div>
+    <a href="javascript:;" class="sidebar-menu-box-close">&times;</a>
+</div>
+<div class="mobile-header-menu-nav" id="mobile-header-menu-nav">
+    <div class="mobile-header-menu-container">
+        <span class="title">Menus</span>
+        <ul class="mobile-header-menu-navbar">
+            
+            <li>
+                <a href="/">
+                    <i class="fa fa-home"></i><span>Home</span>
+                </a>
+            </li>
+            
+            <li>
+                <a href="/archives">
+                    <i class="fa fa-archive"></i><span>Archives</span>
+                </a>
+            </li>
+            
+            <li>
+                <a href="/about">
+                    <i class="fa fa-user"></i><span>About</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    <div class="mobile-header-tag-container">
+        <span class="title">Tags</span>
+        <div id="mobile-header-container-tags">
+            <a href="/tags/linux/" style="font-size: 15px;">linux</a> <a href="/tags/redis/" style="font-size: 20px;">redis</a> <a href="/tags/博客/" style="font-size: 10px;">博客</a>
+        </div>
+    </div>
+</div>
+<div class="search-wrap">
+    <span class="search-close">&times;</span>
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+            <i class="icon icon-lg icon-chevron-left"></i>
+        </a>
+        <input class="search-field" placeholder="Search..." id="keywords">
+        <a id="search-submit" href="javascript:;">
+            <i class="fa fa-search"></i>
+        </a>
+    <div class="search-container" id="search-container">
+        <ul class="search-result" id="search-result">
+        </ul>
+    </div>
+</div>
+
+<div id="search-tpl">
+    <li class="search-result-item">
+        <a href="{url}" class="search-item-li">
+            <span class="search-item-li-title" title="{title}">{title}</span>
+        </a>
+    </li>
+</div>
+<script src="/js/search.js"></script>
+<script src="/js/main.js"></script>
+
+
+  <script src="//cdn.bootcss.com/particles.js/2.0.0/particles.min.js"></script>
+  <div id="particles"></div>
+  <script src="/js/particles.js"></script>
+
+
+
+
+
+
+
+  <link rel="stylesheet" href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css">
+  <script src="//cdn.bootcss.com/scrollReveal.js/3.0.5/scrollreveal.js"></script>
+  <script src="/js/animate.js"></script>
+
+
+  <script src="/js/pop-img.js"></script>
+  <script>
+     $(".article-entry p img").popImg();
+  </script>
+
+  </div>
+</body>
+</html>
